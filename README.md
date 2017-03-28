@@ -38,7 +38,7 @@ g++ foo.cpp -lyannl -std=c++11
 ```
 
 ## Example
-Use the Makefile in the examples folder to run each example.
+Use the Makefile in the `examples` folder to run each example.
 ```C++
 #include <yannl.hpp>
 
