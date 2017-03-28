@@ -1,2 +1,2 @@
-Version 1.0.0:
- - release!
+## Version 1.0.0:
+ - Release
