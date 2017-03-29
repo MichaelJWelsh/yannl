@@ -36,13 +36,23 @@ void tanh(Matrix &input) {
 
 // Softmax activation function.
 void softmax(Matrix &input) {
-    for (size_t i = 0; i < input.rows(); ++i) {
-        double sum = 0;
-        for (size_t j = 0; j < input.cols(); ++j) {
-            sum += std::exp(input[i][j]);
+    if (input.cols() == 1) {
+        for (size_t i = 0; i < input.rows(); ++i) {
+            if (input[i][0] > 1) {
+                input[i][0] = 1;
+            } else if (input[i][0] < 0) {
+                input[i][0] = 0;
+            }
         }
-        for (size_t j = 0; j < input.cols(); ++j) {
-            input[i][j] = std::exp(input[i][j]) / sum;
+    } else {
+        for (size_t i = 0; i < input.rows(); ++i) {
+            double sum = 0;
+            for (size_t j = 0; j < input.cols(); ++j) {
+                sum += std::exp(input[i][j]);
+            }
+            for (size_t j = 0; j < input.cols(); ++j) {
+                input[i][j] = std::exp(input[i][j]) / sum;
+            }
         }
     }
 }
