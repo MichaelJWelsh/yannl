@@ -80,6 +80,7 @@ int main() {
     params.target = target;
     params.batch_size = data.rows();
     params.max_iterations = 5000;
+    params.epoch_analysis_interval = 100;
     params.min_accuracy = 0.95;
     params.learning_rate = 0.16;
     params.annealing_factor = 3000;
