@@ -38,14 +38,15 @@ int main() {
     params.target = target;
     params.batch_size = data.rows();
     params.max_iterations = 1000;
+    params.epoch_analysis_interval = 50;
     params.min_accuracy = 0.95;
     params.learning_rate = 0.16;
-    params.annealing_factor = 3000;
+    params.annealing_factor = 300;
     params.regularization_factor = 0.002;
-    params.momentum_factor = 0.9;
+    params.momentum_factor = 0.8;
     params.shuffle = true;
 
-    // Train network. Request it to print out loss every 100 epochs.
+    // Train network. Request it to print out loss every 50 epochs.
     network.train(params, true);
 
     // Get network's predictions for new data and calculate accuracy.

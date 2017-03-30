@@ -28,7 +28,13 @@ struct TrainingParams final {
     // Max number of epochs to run the algorithm for.
     std::size_t max_iterations;
 
-    // The minimum accuracy required before training algorithm can return early (between 0 and 1 inclusive).
+    // Interval that determines how many epochs are required before training
+    // algorithm can write out verbose message (if verbose is true) and
+    // calculate current accuracy (which is then compared with the minimum
+    // requested accuracy to see if network can return early).
+    std::size_t epoch_analysis_interval;
+
+    // Minimum accuracy required before training algorithm can return early (between 0 and 1 inclusive).
     double min_accuracy;
 
     // Initial learning rate.
@@ -40,7 +46,7 @@ struct TrainingParams final {
     // Regularization factor for L2 regularization.
     double regularization_factor;
 
-    // Momentum factor.
+    // Momentum factor (between 0 and 1 inclusive).
     double momentum_factor;
 
     // Shuffle or not to shuffle between epochs.
@@ -86,6 +92,7 @@ public:
             Matrix target,
             std::size_t batch_size,
             std::size_t max_iterations,
+            std::size_t epoch_analysis_interval,
             double min_accuracy,
             double learning_rate,
             double annealing_factor,

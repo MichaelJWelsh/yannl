@@ -361,6 +361,7 @@ void Network::train(const TrainingParams& params, bool verbose, ostream &verbose
             params.target,
             params.batch_size,
             params.max_iterations,
+            params.epoch_analysis_interval,
             params.min_accuracy,
             params.learning_rate,
             params.annealing_factor,
@@ -378,6 +379,7 @@ void Network::train(Matrix data,
         Matrix target,
         size_t batch_size,
         size_t max_iterations,
+        size_t epoch_analysis_interval,
         double min_accuracy,
         double learning_rate,
         double annealing_factor,
@@ -397,8 +399,12 @@ void Network::train(Matrix data,
         throw invalid_argument("Data does not support given batch size!");
     } else if (max_iterations == 0) {
         throw invalid_argument("The max amount of iterations requested is zero!");
+    } else if (epoch_analysis_interval == 0 || epoch_analysis_interval > max_iterations) {
+        throw invalid_argument("The epoch analysis interval is not in the range (0, max amount of iterations]!");
     } else if (min_accuracy < 0 || min_accuracy > 1) {
         throw invalid_argument("The minimum accuracy required to return early is not in the range [0, 1]!");
+    } else if (momentum_factor < 0 || momentum_factor > 1) {
+        throw invalid_argument("The momentum factor is not in the range [0, 1]!");
     }
 
     // Constants.
@@ -520,8 +526,10 @@ void Network::train(Matrix data,
                 dB_avg[i].set_all(0);
             }
 
-            // Every 100 epochs: print loss if verbose is true, exit if accuracy is greater than or equal to minimum required accuracy.
-            if (epoch % 100 == 0 || epoch == 1) {
+            // Every 'x' amount of epochs (based on epoch analysis interval):
+            // print loss if verbose is true, exit if accuracy is greater than
+            // or equal to minimum requested accuracy.
+            if (epoch % epoch_analysis_interval == 0 || epoch == 1) {
                 if (verbose) {
                     this->feed_forward(data);
                     double loss = this->loss_function(this->predict(), target, regularization_factor);
