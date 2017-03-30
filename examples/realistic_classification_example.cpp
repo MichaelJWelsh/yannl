@@ -30,7 +30,7 @@ int main() {
      * and sigmoid activation function, and 3 output neurons with softmax
      * activation function.
      */
-    Network network(CLASSIFICATION, 2, {6, 6, 6}, {sigmoid, sigmoid, sigmoid}, 3, softmax);
+    Network network(CLASSIFICATION, 2, {8, 8, 8}, {sigmoid, sigmoid, sigmoid}, 3, softmax);
 
     // Convenience structure for easy parameter filling.
     TrainingParams params;
@@ -38,12 +38,12 @@ int main() {
     params.target = target;
     params.batch_size = data.rows();
     params.max_iterations = 1000;
-    params.epoch_analysis_interval = 50;
+    params.epoch_analysis_interval = 10;
     params.min_accuracy = 0.95;
-    params.learning_rate = 0.16;
-    params.annealing_factor = 300;
-    params.regularization_factor = 0.002;
-    params.momentum_factor = 0.8;
+    params.learning_rate = 0.12;
+    params.annealing_factor = 250;
+    params.regularization_factor = 0.0015;
+    params.momentum_factor = 0.95;
     params.shuffle = true;
 
     // Train network. Request it to print out loss every 50 epochs.
