@@ -26,7 +26,7 @@ int main() {
     srand(time(NULL));
 
     /*
-     * Create network with 2 input neurons, 3 hidden layers each with 6 neurons
+     * Create network with 2 input neurons, 3 hidden layers each with 8 neurons
      * and sigmoid activation function, and 3 output neurons with softmax
      * activation function.
      */
@@ -46,7 +46,7 @@ int main() {
     params.momentum_factor = 0.95;
     params.shuffle = true;
 
-    // Train network. Request it to print out loss every 50 epochs.
+    // Train network. Request it to print out loss every 10 epochs.
     network.train(params, true);
 
     // Get network's predictions for new data and calculate accuracy.
