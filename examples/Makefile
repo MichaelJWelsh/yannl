@@ -1,6 +1,9 @@
 COMPILER=g++
 FLAGS=-lyannl -Wall -Werror -pedantic-errors -std=c++11
 
+clean:
+	rm -f classification realistic_classification regression integrating_blas
+
 classification:
 	$(COMPILER) classification_example.cpp -o classification $(FLAGS)
 	./classification
