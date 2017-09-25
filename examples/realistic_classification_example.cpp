@@ -82,7 +82,7 @@ int main() {
 
     // Give user opportunity to enter own data in command line for bleeding edge testing.
     string input;
-    cout << endl << "Test network on given data? (y\\n): ";
+    cout << endl << "Test network? (y\\n): ";
     cin >> input;
     cout << endl;
     transform(input.begin(), input.end(), input.begin(), ::tolower);
